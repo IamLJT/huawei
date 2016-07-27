@@ -9,10 +9,10 @@ int namebeauty(string s)
 	int sum=0;
 	for(int i=0; i<s.size(); i++)
 	{
-		if(s[i]>'z')
-			st[s[i]-'A']++;
-		else
+		if(s[i]>'Z')
 			st[s[i]-'a']++;
+		else
+			st[s[i]-'A']++;
 	}
 	sort(st.begin(), st.end());
 	for(int i=st.size()-1; i>=0; i--)
