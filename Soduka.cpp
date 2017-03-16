@@ -1,5 +1,5 @@
 /***************************************************
-Name: Soduka
+Name: Sudoku
 Data: 2017/03/14
 Func: 问题描述：数独（Sudoku）是一款大众喜爱的数字逻辑游戏。
 玩家需要根据9X9盘面上的已知数字，推算出所有剩余空格的数字，
@@ -15,17 +15,17 @@ Func: 问题描述：数独（Sudoku）是一款大众喜爱的数字逻辑游戏。
 
 using namespace std;
 
-vector<int> FindLose(vector<vector<int>> Soduka, int row, int col)
+vector<int> FindLose(vector<vector<int>> Sudoku, int row, int col)
 {
 	vector<int> res;
 	vector<bool> r(9, 1), l(9, 1), m(9, 1);
 	for (int i = 0; i < 9; ++i) {
-		if (Soduka[row][i] != 0)
-			r[Soduka[row][i] - 1] = 0;
-		if (Soduka[i][col] != 0)
-			l[Soduka[i][col] - 1] = 0;
-		if (Soduka[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] != 0)
-			m[Soduka[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] - 1] = 0;
+		if (Sudoku[row][i] != 0)
+			r[Sudoku[row][i] - 1] = 0;
+		if (Sudoku[i][col] != 0)
+			l[Sudoku[i][col] - 1] = 0;
+		if (Sudoku[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] != 0)
+			m[Sudoku[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] - 1] = 0;
 	}
 	for (int i = 0; i < 9; ++i) {
 		if (r[i] == 1 && r[i] == m[i] && m[i] == l[i])
@@ -34,36 +34,36 @@ vector<int> FindLose(vector<vector<int>> Soduka, int row, int col)
 	return res;
 }
 
-void FillSoduka(vector<vector<int>>& Soduka)
+void FillSudoku(vector<vector<int>>& Sudoku)
 {
-	vector<vector<int>> temp = Soduka;
+	vector<vector<int>> temp = Sudoku;
 	for (int i = 0; i < 9; ++i) {
 		for (int j = 0; j < 9; ++j) {
-			if (Soduka[i][j] != 0)
+			if (Sudoku[i][j] != 0)
 				continue;
-			vector<int> res = FindLose(Soduka, i, j);
+			vector<int> res = FindLose(Sudoku, i, j);
 			if (res.size() == 1)
-				Soduka[i][j] = res[0];
+				Sudoku[i][j] = res[0];
 		}
 	}
-	if (Soduka == temp)
+	if (Sudoku == temp)
 		return;
-	FillSoduka(Soduka);
+	FillSudoku(Sudoku);
 }
 
 int main(void)
 {
-	vector<vector<int>> Soduka(9, vector<int>(9, 0));
+	vector<vector<int>> Sudoku(9, vector<int>(9, 0));
 	for (int i = 0; i < 9; ++i)
 		for (int j = 0; j < 9; ++j)
-			cin >> Soduka[i][j];
-	FillSoduka(Soduka);
+			cin >> Sudoku[i][j];
+	FillSudoku(Sudoku);
 	for (int i = 0; i < 9; ++i) {
 		for (int j = 0; j < 9; ++j) {
 			if (j == 8)
-				cout << Soduka[i][j];
+				cout << Sudoku[i][j];
 			else
-				cout << Soduka[i][j] << " ";
+				cout << Sudoku[i][j] << " ";
 		}
 			
 		cout << endl;
